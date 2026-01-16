@@ -71,6 +71,17 @@ function ProjectDetailPage() {
 									))}
 								</div>
 							</div>
+
+							{project.image && (
+								<div className="mb-8 w-full overflow-hidden bg-muted aspect-video">
+									<img
+										src={project.image}
+										alt={project.title}
+										className="w-full h-full object-cover"
+									/>
+								</div>
+							)}
+
 							<h1 className="text-4xl font-medium text-foreground mb-4">
 								{project.title}
 							</h1>
@@ -165,6 +176,7 @@ function ProjectDetailPage() {
 								</div>
 							)}
 						</header>
+
 
 						<div
 							className="prose prose-invert prose-lg max-w-none"

@@ -29,7 +29,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 						>
 							<div className="flex flex-col md:flex-row gap-6 p-6">
 								{/* Project Image */}
-								<div className="md:w-48 md:h-48 w-full h-48 shrink-0 overflow-hidden bg-muted">
+								<div className="w-full md:w-80 shrink-0 overflow-hidden bg-muted aspect-video">
 									<img
 										src={project.image}
 										alt={project.title}
