@@ -2,7 +2,7 @@
 title: Monica
 description: Personal finances mobile app with smart assistant features. Smart budgeting and expense tracking.
 tags: [React Native, AI, PostgreSQL]
-link: "#"
+link: "https://www.monicaapp.co/"
 order: 1
 year: 2026
 image: "https://thewellspringfoundation.org/wp-content/uploads/hero-placeholder.jpg"

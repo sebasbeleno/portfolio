@@ -81,7 +81,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
-													aria-label="Visit project website"
+													aria-label={`${project.title || 'Project'} website`}
 												>
 													<svg
 														className="w-5 h-5"
@@ -105,7 +105,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
-													aria-label="View GitHub repository"
+													aria-label={`${project.title || 'Project'} source on GitHub`}
 												>
 													<svg
 														className="w-5 h-5"
@@ -127,7 +127,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
-													aria-label="Download on the App Store"
+													aria-label={`${project.title || 'Project'} on App Store`}
 												>
 													<svg
 														className="w-5 h-5"
@@ -145,7 +145,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
-													aria-label="Get it on Google Play"
+													aria-label={`${project.title || 'Project'} on Google Play`}
 												>
 													<svg
 														className="w-5 h-5"

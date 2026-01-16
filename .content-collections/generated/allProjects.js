@@ -8,7 +8,7 @@ export default [
       "AI",
       "PostgreSQL"
     ],
-    "link": "#",
+    "link": "https://www.monicaapp.co/",
     "order": 1,
     "year": 2026,
     "image": "https://thewellspringfoundation.org/wp-content/uploads/hero-placeholder.jpg",
