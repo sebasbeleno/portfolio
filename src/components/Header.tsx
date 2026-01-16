@@ -50,14 +50,6 @@ export default function Header() {
               blog
             </a>
           </li>
-          <li>
-            <a
-              href="#contact"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 link-underline"
-            >
-              contact
-            </a>
-          </li>
         </ul>
       </nav>
     </header>

@@ -1,79 +1,28 @@
 
 export default [
   {
-    "title": "API Gateway",
-    "description": "High-performance API gateway handling millions of requests daily.",
-    "tags": [
-      "Go",
-      "gRPC",
-      "Redis"
-    ],
-    "link": "#",
-    "order": 2,
-    "content": "# API Gateway\n\nHigh-performance API gateway handling millions of requests daily.",
-    "_meta": {
-      "filePath": "api-gateway.md",
-      "fileName": "api-gateway.md",
-      "directory": ".",
-      "extension": "md",
-      "path": "api-gateway"
-    }
-  },
-  {
-    "title": "CLI Tools",
-    "description": "Developer productivity tools for streamlined workflows.",
-    "tags": [
-      "Rust",
-      "CLI",
-      "Open Source"
-    ],
-    "link": "#",
-    "order": 4,
-    "content": "# CLI Tools\n\nDeveloper productivity tools for streamlined workflows.",
-    "_meta": {
-      "filePath": "cli-tools.md",
-      "fileName": "cli-tools.md",
-      "directory": ".",
-      "extension": "md",
-      "path": "cli-tools"
-    }
-  },
-  {
     "title": "Monica",
-    "description": "Scalable cloud architecture with automated deployments and monitoring.",
+    "description": "Personal finances mobile app with smart assistant features. Smart budgeting and expense tracking.",
     "tags": [
-      "AWS",
-      "Terraform",
-      "Docker"
+      "React Native",
+      "AI",
+      "PostgreSQL"
     ],
     "link": "#",
     "order": 1,
+    "year": 2026,
+    "image": "https://thewellspringfoundation.org/wp-content/uploads/hero-placeholder.jpg",
+    "links": {
+      "website": "https://www.monicaapp.co/",
+      "appStore": "https://apps.apple.com/app/monica-personal-finance/id6446501230"
+    },
     "content": "# Cloud Infrastructure\n\nScalable cloud architecture with automated deployments and monitoring.",
     "_meta": {
-      "filePath": "cloud-infrastructure.md",
-      "fileName": "cloud-infrastructure.md",
+      "filePath": "monica.md",
+      "fileName": "monica.md",
       "directory": ".",
       "extension": "md",
-      "path": "cloud-infrastructure"
-    }
-  },
-  {
-    "title": "Real-time Dashboard",
-    "description": "Interactive analytics dashboard with live data visualization.",
-    "tags": [
-      "React",
-      "TypeScript",
-      "WebSocket"
-    ],
-    "link": "#",
-    "order": 3,
-    "content": "# Real-time Dashboard\n\nInteractive analytics dashboard with live data visualization.",
-    "_meta": {
-      "filePath": "realtime-dashboard.md",
-      "fileName": "realtime-dashboard.md",
-      "directory": ".",
-      "extension": "md",
-      "path": "realtime-dashboard"
+      "path": "monica"
     }
   }
 ]

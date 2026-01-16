@@ -11,6 +11,14 @@ const projects = defineCollection({
     tags: z.array(z.string()),
     link: z.string(),
     order: z.number(),
+    year: z.number(),
+    image: z.string(),
+    links: z.object({
+      website: z.string().optional(),
+      github: z.string().optional(),
+      appStore: z.string().optional(),
+      googlePlay: z.string().optional(),
+    }).optional(),
     content: z.string(),
   }),
 })

@@ -29,7 +29,7 @@ export default function Footer() {
               linkedin
             </a>
             <a
-              href="mailto:hello@sebastian.dev"
+              href="mailto:sebasbeleno15@gmail.com"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               email
