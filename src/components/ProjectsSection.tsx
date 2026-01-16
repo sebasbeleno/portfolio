@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { Project } from "../../.content-collections/generated/index.d.ts";
 
 interface ProjectsSectionProps {
@@ -12,7 +13,6 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 	return (
 		<section id="projects" className="py-24 border-t border-border">
 			<div className="container mx-auto px-6">
-				{/* Section Header */}
 				<div className="flex items-center gap-4 mb-12">
 					<span className="text-primary text-sm">01</span>
 					<h2 className="text-2xl font-medium text-foreground">Projects</h2>
@@ -21,9 +21,11 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
 				<div className="space-y-6">
 					{sortedProjects.map((project, index) => (
-						<div
+						<Link
 							key={project._meta.fileName}
-							className="group w-full border border-border bg-card hover:border-primary transition-all duration-300"
+							to="/projects/$name"
+							params={{ name: project._meta.path }}
+							className="group block w-full border border-border bg-card hover:border-primary transition-all duration-300"
 						>
 							<div className="flex flex-col md:flex-row gap-6 p-6">
 								{/* Project Image */}
@@ -154,11 +156,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 									)}
 								</div>
 							</div>
-						</div>
+						</Link>
 					))}
 				</div>
 
-				{/* View all link */}
 				<div className="mt-8 flex justify-end">
 					<a
 						href="/projects"
