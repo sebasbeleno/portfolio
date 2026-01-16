@@ -6,7 +6,7 @@ interface ProjectsSectionProps {
 }
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
-	const sortedProjects = projects.sort(
+	const sortedProjects = [...projects].sort(
 		(a: Project, b: Project) => a.order - b.order,
 	);
 
@@ -81,6 +81,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
+													aria-label="Visit project website"
 												>
 													<svg
 														className="w-5 h-5"
@@ -104,6 +105,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
+													aria-label="View GitHub repository"
 												>
 													<svg
 														className="w-5 h-5"
@@ -125,6 +127,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
+													aria-label="Download on the App Store"
 												>
 													<svg
 														className="w-5 h-5"
@@ -142,6 +145,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 													rel="noopener noreferrer"
 													className="text-muted-foreground hover:text-primary transition-colors"
 													onClick={(e) => e.stopPropagation()}
+													aria-label="Get it on Google Play"
 												>
 													<svg
 														className="w-5 h-5"

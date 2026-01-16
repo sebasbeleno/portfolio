@@ -9,7 +9,7 @@ export const Route = createFileRoute("/projects/")({
 });
 
 function ProjectsPage() {
-	const sortedProjects = allProjects.sort(
+	const sortedProjects = [...allProjects].sort(
 		(a: Project, b: Project) => a.order - b.order,
 	);
 

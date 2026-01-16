@@ -7,7 +7,7 @@ import { allProjects } from "../../../.content-collections/generated/index.js";
 export const Route = createFileRoute("/projects/$name")({
 	component: ProjectDetailPage,
 	loader: ({ params }) => {
-		const project = allProjects.find((p) => p._meta.path === params.name);
+		const project = [...allProjects].find((p) => p._meta.path === params.name);
 		if (!project) {
 			throw notFound();
 		}

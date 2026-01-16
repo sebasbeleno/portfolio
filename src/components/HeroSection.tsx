@@ -115,6 +115,7 @@ export default function HeroSection() {
 							href="https://github.com/sebasbeleno"
 							target="_blank"
 							rel="noopener noreferrer"
+							aria-label="GitHub"
 							className="group flex items-center gap-2 px-4 py-2 border border-border hover:border-primary transition-colors duration-200"
 						>
 							<svg
@@ -131,6 +132,7 @@ export default function HeroSection() {
 							href="https://linkedin.com/in/sebasbeleno"
 							target="_blank"
 							rel="noopener noreferrer"
+							aria-label="LinkedIn"
 							className="group flex items-center gap-2 px-4 py-2 border border-border hover:border-primary transition-colors duration-200"
 						>
 							<svg
@@ -145,6 +147,7 @@ export default function HeroSection() {
 
 						<a
 							href="mailto:sebasbeleno15@gmail.com"
+							aria-label="Email"
 							className="group flex items-center gap-2 px-4 py-2 border border-border hover:border-primary transition-colors duration-200"
 						>
 							<svg

@@ -1,12 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export default function Header() {
   const [copied, setCopied] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const handleEmailClick = () => {
-    navigator.clipboard.writeText('sebasbeleno15@gmail.com')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleEmailClick = async () => {
+    try {
+      await navigator.clipboard.writeText('sebasbeleno15@gmail.com')
+      setCopied(true)
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000)
+    } catch (error) {
+      console.error('Failed to copy email:', error)
+    }
   }
 
   return (

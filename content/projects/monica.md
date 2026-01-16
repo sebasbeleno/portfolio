@@ -11,6 +11,6 @@ links:
   appStore: "https://apps.apple.com/app/monica-personal-finance/id6446501230"
 ---
 
-# Cloud Infrastructure
+# Meet Monica
 
-Scalable cloud architecture with automated deployments and monitoring.
+Monica is a personal finance mobile application designed to help users manage their finances effectively. The app combines traditional budgeting and expense tracking features with advanced AI-powered assistance to provide a comprehensive financial management solution.

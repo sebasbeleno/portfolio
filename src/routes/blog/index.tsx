@@ -9,7 +9,7 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogPage() {
-	const sortedBlogPosts = allBlogs.sort(
+	const sortedBlogPosts = [...allBlogs].sort(
 		(a: Blog, b: Blog) =>
 			new Date(b.date).getTime() - new Date(a.date).getTime(),
 	);

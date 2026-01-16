@@ -1,23 +1,30 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { allBlogs } from "../../../.content-collections/generated/index.js";
 
 export const Route = createFileRoute("/blog/$name")({
 	component: BlogPostPage,
-	loader: ({ params }) => {
-		const post = allBlogs.find((p) => p._meta.path === params.name);
+	loader: async ({ params }) => {
+		const post = [...allBlogs].find((p) => p._meta.path === params.name);
 		if (!post) {
 			throw notFound();
 		}
-		return { post };
+
+		// Convert markdown to HTML (handling async mode)
+		const rawHtml = await marked(post.content);
+
+		// Sanitize HTML to prevent XSS attacks
+		const sanitizedHtml = DOMPurify.sanitize(rawHtml);
+
+		return { post, sanitizedHtml };
 	},
 });
 
 function BlogPostPage() {
-	const { post } = Route.useLoaderData();
-	const htmlContent = marked(post.content);
+	const { post, sanitizedHtml } = Route.useLoaderData();
 
 	return (
 		<div className="min-h-screen bg-background">
@@ -58,7 +65,7 @@ function BlogPostPage() {
 
 						<div
 							className="prose prose-invert prose-lg max-w-none"
-							dangerouslySetInnerHTML={{ __html: htmlContent }}
+							dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
 						/>
 					</article>
 				</div>

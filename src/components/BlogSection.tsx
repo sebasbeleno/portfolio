@@ -6,7 +6,7 @@ interface BlogSectionProps {
 }
 
 export default function BlogSection({ blogPosts }: BlogSectionProps) {
-	const sortedBlogPosts = blogPosts.sort(
+	const sortedBlogPosts = [...blogPosts].sort(
 		(a: Blog, b: Blog) =>
 			new Date(b.date).getTime() - new Date(a.date).getTime(),
 	);

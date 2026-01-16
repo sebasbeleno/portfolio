@@ -16,7 +16,7 @@ export default [
       "website": "https://www.monicaapp.co/",
       "appStore": "https://apps.apple.com/app/monica-personal-finance/id6446501230"
     },
-    "content": "# Cloud Infrastructure\n\nScalable cloud architecture with automated deployments and monitoring.",
+    "content": "# Meet Monica\n\nMonica is a personal finance mobile application designed to help users manage their finances effectively. The app combines traditional budgeting and expense tracking features with advanced AI-powered assistance to provide a comprehensive financial management solution.",
     "_meta": {
       "filePath": "monica.md",
       "fileName": "monica.md",

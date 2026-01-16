@@ -42,6 +42,7 @@
     "@tanstack/store": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "isomorphic-dompurify": "^2.35.0",
     "lucide-react": "^0.561.0",
     "marked": "^15.0.8",
     "react": "^19.2.0",
