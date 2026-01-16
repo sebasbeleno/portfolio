@@ -1,6 +1,80 @@
+import { useRef, useState, useEffect } from "react";
+
 export default function HeroSection() {
+	const sectionRef = useRef<HTMLElement>(null);
+	const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+	const [isHovering, setIsHovering] = useState(false);
+
+	useEffect(() => {
+		const section = sectionRef.current;
+		if (!section) return;
+
+		const handleMouseMove = (e: MouseEvent) => {
+			const rect = section.getBoundingClientRect();
+			setMousePos({
+				x: e.clientX - rect.left,
+				y: e.clientY - rect.top,
+			});
+		};
+
+		const handleMouseEnter = () => setIsHovering(true);
+		const handleMouseLeave = (e: MouseEvent) => {
+			const rect = section.getBoundingClientRect();
+			const x = e.clientX;
+			const y = e.clientY;
+			if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+				setIsHovering(false);
+			}
+		};
+
+		section.addEventListener("mousemove", handleMouseMove);
+		section.addEventListener("mouseenter", handleMouseEnter);
+		section.addEventListener("mouseleave", handleMouseLeave);
+
+		return () => {
+			section.removeEventListener("mousemove", handleMouseMove);
+			section.removeEventListener("mouseenter", handleMouseEnter);
+			section.removeEventListener("mouseleave", handleMouseLeave);
+		};
+	}, []);
+
 	return (
-		<section className="min-h-screen flex items-center justify-center pt-16 relative">
+		<section
+			ref={sectionRef}
+			className="min-h-screen flex items-center justify-center pt-16 relative"
+		>
+			<div className="absolute inset-0 pointer-events-none">
+				{/* Grid background with right-to-left fade */}
+				<div
+					className="absolute inset-0 grid-background transition-opacity duration-700 ease-out"
+					style={{
+						maskImage: "linear-gradient(to left, black 0%, transparent 50%)",
+						WebkitMaskImage:
+							"linear-gradient(to left, black 20%, transparent 40%)",
+					}}
+				/>
+
+				{/* Brighter grid near cursor */}
+				<div
+					className="absolute inset-0"
+					style={{
+						backgroundImage:
+							"linear-gradient(oklch(0.45 0.02 260) 1px, transparent 1px), linear-gradient(90deg, oklch(0.45 0.02 260) 1px, transparent 1px)",
+						backgroundSize: "40px 40px",
+						backgroundPosition: "-1px -1px",
+						opacity: isHovering ? 1 : 0,
+						maskImage: isHovering
+							? `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, black, transparent 50%), linear-gradient(to left, black 0%, transparent 100%)`
+							: "none",
+						WebkitMaskImage: isHovering
+							? `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, black, transparent 50%), linear-gradient(to left, black 0%, transparent 100%)`
+							: "none",
+						maskComposite: "intersect",
+						WebkitMaskComposite: "source-in",
+					}}
+				/>
+			</div>
+
 			{/* Corner decorations */}
 			<div className="absolute top-20 left-6 w-16 h-16 border-l border-t border-border" />
 			<div className="absolute top-20 right-6 w-16 h-16 border-r border-t border-border" />

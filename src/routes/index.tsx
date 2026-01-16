@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
 
 function Portfolio() {
 	return (
-		<div className="min-h-screen bg-background grid-background">
+		<div className="min-h-screen bg-background">
 			<Header />
 			<HeroSection />
 			<ProjectsSection projects={allProjects} />
