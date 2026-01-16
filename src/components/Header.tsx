@@ -1,13 +1,70 @@
-import { Link } from '@tanstack/react-router'
+import { useState, useEffect, useRef } from 'react'
 
 export default function Header() {
+  const [copied, setCopied] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleEmailClick = async () => {
+    try {
+      await navigator.clipboard.writeText('sebasbeleno15@gmail.com')
+      setCopied(true)
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000)
+    } catch (error) {
+      console.error('Failed to copy email:', error)
+    }
+  }
+
   return (
-    <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-      <h1 className="ml-4 text-xl font-semibold">
-        <Link to="/" className="hover:text-gray-300 transition-colors">
-          My Portfolio
-        </Link>
-      </h1>
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
+      <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo / Brand */}
+        <div className="relative flex items-center gap-2">
+          <button
+            onClick={handleEmailClick}
+            className="text-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2 cursor-pointer"
+          >
+            <span className="text-primary">~</span>
+            <span className="text-sm font-medium tracking-tight">sebasbeleno15@gmail.com</span>
+          </button>
+          <span
+            className={`absolute -right-20 text-xs text-primary font-medium transition-all duration-300 ${
+              copied
+                ? 'opacity-100 blur-0 translate-x-0'
+                : 'opacity-0 blur-xs -translate-x-2 pointer-events-none'
+            }`}
+          >
+            Copied!
+          </span>
+        </div>
+
+        {/* Navigation Links */}
+        <ul className="flex items-center gap-8">
+          <li>
+            <a
+              href="#projects"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 link-underline"
+            >
+              projects
+            </a>
+          </li>
+          <li>
+            <a
+              href="#blog"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 link-underline"
+            >
+              blog
+            </a>
+          </li>
+        </ul>
+      </nav>
     </header>
   )
 }

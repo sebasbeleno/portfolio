@@ -1,10 +1,10 @@
 import configuration from "../../content-collections.ts";
 import { GetTypeByName } from "@content-collections/core";
 
-export type Job = GetTypeByName<typeof configuration, "jobs">;
-export declare const allJobs: Array<Job>;
+export type Project = GetTypeByName<typeof configuration, "projects">;
+export declare const allProjects: Array<Project>;
 
-export type Education = GetTypeByName<typeof configuration, "education">;
-export declare const allEducations: Array<Education>;
+export type Blog = GetTypeByName<typeof configuration, "blog">;
+export declare const allBlogs: Array<Blog>;
 
 export {};

@@ -12,6 +12,7 @@
     "check": "biome check",
     "deploy": "pnpm run build && wrangler deploy"
   },
+  "packageManager": "pnpm@10.26.1",
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.13.8",
     "@radix-ui/react-checkbox": "^1.2.2",
@@ -42,6 +43,7 @@
     "@tanstack/store": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "isomorphic-dompurify": "^2.35.0",
     "lucide-react": "^0.561.0",
     "marked": "^15.0.8",
     "react": "^19.2.0",
@@ -68,7 +70,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "jsdom": "^27.0.0",
     "typescript": "^5.7.2",
-    "vite": "^7.1.7",
+    "vite": "^7.3.1",
     "vitest": "^3.0.5",
     "web-vitals": "^5.1.0",
     "wrangler": "^4.40.3"
