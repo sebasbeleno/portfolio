@@ -19,62 +19,59 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 					<span className="h-px flex-1 bg-border" />
 				</div>
 
-				{/* Projects Grid - Horizontal Scroll */}
-				<div className="overflow-x-auto pb-4 -mx-6 px-6">
-					<div className="flex gap-6 min-w-max">
-						{sortedProjects.map((project, index) => (
-							<a
-								key={project._meta.fileName}
-								href={project.link}
-								className="group w-80 flex-shrink-0 border border-border bg-card hover:border-primary transition-all duration-300"
-							>
-								<div className="p-6 space-y-4">
-									{/* Project number */}
-									<div className="flex items-center justify-between">
-										<span className="text-xs text-muted-foreground">
-											#{String(index + 1).padStart(2, "0")}
-										</span>
-										<svg
-											className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											strokeWidth={1.5}
-											aria-hidden="true"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-											/>
-										</svg>
-									</div>
-
-									{/* Title */}
-									<h3 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-										{project.title}
-									</h3>
-
-									{/* Description */}
-									<p className="text-sm text-muted-foreground leading-relaxed">
-										{project.description}
-									</p>
-
-									{/* Tags */}
-									<div className="flex flex-wrap gap-2 pt-2">
-										{project.tags.map((tag) => (
-											<span
-												key={tag}
-												className="px-2 py-1 text-xs border border-border text-muted-foreground"
-											>
-												{tag}
-											</span>
-										))}
-									</div>
+				<div className="space-y-6">
+					{sortedProjects.map((project, index) => (
+						<a
+							key={project._meta.fileName}
+							href={project.link}
+							className="group block w-full border border-border bg-card hover:border-primary transition-all duration-300"
+						>
+							<div className="p-6 space-y-4">
+								{/* Project number */}
+								<div className="flex items-center justify-between">
+									<span className="text-xs text-muted-foreground">
+										#{String(index + 1).padStart(2, "0")}
+									</span>
+									<svg
+										className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+										strokeWidth={1.5}
+										aria-hidden="true"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+										/>
+									</svg>
 								</div>
-							</a>
-						))}
-					</div>
+
+								{/* Title */}
+								<h3 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+									{project.title}
+								</h3>
+
+								{/* Description */}
+								<p className="text-sm text-muted-foreground leading-relaxed">
+									{project.description}
+								</p>
+
+								{/* Tags */}
+								<div className="flex flex-wrap gap-2 pt-2">
+									{project.tags.map((tag) => (
+										<span
+											key={tag}
+											className="px-2 py-1 text-xs border border-border text-muted-foreground"
+										>
+											{tag}
+										</span>
+									))}
+								</div>
+							</div>
+						</a>
+					))}
 				</div>
 
 				{/* View all link */}
