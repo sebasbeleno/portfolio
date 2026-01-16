@@ -1,9 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
+import DOMPurify from "dompurify";
+import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { parseMarkdown } from "@/lib/markdown";
 import { allBlogs } from "../../../.content-collections/generated/index.js";
+import "highlight.js/styles/github-dark.css";
 
 export const Route = createFileRoute("/blog/$name")({
 	component: BlogPostPage,
@@ -13,18 +15,22 @@ export const Route = createFileRoute("/blog/$name")({
 			throw notFound();
 		}
 
-		// Convert markdown to HTML (handling async mode)
-		const rawHtml = await marked(post.content);
-
-		// Sanitize HTML to prevent XSS attacks
-		const sanitizedHtml = DOMPurify.sanitize(rawHtml);
-
-		return { post, sanitizedHtml };
+		return { post };
 	},
 });
 
 function BlogPostPage() {
-	const { post, sanitizedHtml } = Route.useLoaderData();
+	const { post } = Route.useLoaderData();
+	const [sanitizedHtml, setSanitizedHtml] = useState<string>("");
+
+	useEffect(() => {
+		const processMarkdown = async () => {
+			const rawHtml = await parseMarkdown(post.content);
+			const sanitized = DOMPurify.sanitize(rawHtml);
+			setSanitizedHtml(sanitized);
+		};
+		processMarkdown();
+	}, [post.content]);
 
 	return (
 		<div className="min-h-screen bg-background">

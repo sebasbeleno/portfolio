@@ -1,9 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
+import DOMPurify from "dompurify";
+import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { parseMarkdown } from "@/lib/markdown";
 import { allProjects } from "../../../.content-collections/generated/index.js";
+import "highlight.js/styles/github-dark.css";
 
 export const Route = createFileRoute("/projects/$name")({
 	component: ProjectDetailPage,
@@ -13,18 +15,22 @@ export const Route = createFileRoute("/projects/$name")({
 			throw notFound();
 		}
 
-		// Convert markdown to HTML (handling async mode)
-		const rawHtml = await marked(project.content);
-
-		// Sanitize HTML to prevent XSS attacks
-		const sanitizedHtml = DOMPurify.sanitize(rawHtml);
-
-		return { project, sanitizedHtml };
+		return { project };
 	},
 });
 
 function ProjectDetailPage() {
-	const { project, sanitizedHtml } = Route.useLoaderData();
+	const { project } = Route.useLoaderData();
+	const [sanitizedHtml, setSanitizedHtml] = useState<string>("");
+
+	useEffect(() => {
+		const processMarkdown = async () => {
+			const rawHtml = await parseMarkdown(project.content);
+			const sanitized = DOMPurify.sanitize(rawHtml);
+			setSanitizedHtml(sanitized);
+		};
+		processMarkdown();
+	}, [project.content]);
 
 	return (
 		<div className="min-h-screen bg-background">
@@ -176,7 +182,6 @@ function ProjectDetailPage() {
 								</div>
 							)}
 						</header>
-
 
 						<div
 							className="prose prose-invert prose-lg max-w-none"

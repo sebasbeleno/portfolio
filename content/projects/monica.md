@@ -14,5 +14,3 @@ links:
 # Meet Monica
 
 Monica is a personal finance mobile application designed to help users manage their finances effectively. The app combines traditional budgeting and expense tracking features with advanced AI-powered assistance to provide a comprehensive financial management solution.
-
-``hp;a``
