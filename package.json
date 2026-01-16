@@ -12,6 +12,7 @@
     "check": "biome check",
     "deploy": "pnpm run build && wrangler deploy"
   },
+  "packageManager": "pnpm@10.26.1",
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.13.8",
     "@radix-ui/react-checkbox": "^1.2.2",
