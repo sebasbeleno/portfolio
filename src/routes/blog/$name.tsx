@@ -21,18 +21,28 @@ export const Route = createFileRoute("/blog/$name")({
 function BlogPostPage() {
 	const { post } = Route.useLoaderData();
 	const [sanitizedHtml, setSanitizedHtml] = useState<string>("");
+	const [markdownError, setMarkdownError] = useState<Error | null>(null);
 
 	useEffect(() => {
 		let isMounted = true;
 
 		const processMarkdown = async () => {
-			const rawHtml = await parseMarkdown(post.content);
-			// Dynamically import DOMPurify to avoid SSR issues
-			const DOMPurify = (await import("dompurify")).default;
-			const sanitized = DOMPurify.sanitize(rawHtml);
+			try {
+				const rawHtml = await parseMarkdown(post.content);
+				// Dynamically import DOMPurify to avoid SSR issues
+				const DOMPurify = (await import("dompurify")).default;
+				const sanitized = DOMPurify.sanitize(rawHtml);
 
-			if (isMounted) {
-				setSanitizedHtml(sanitized);
+				if (isMounted) {
+					setSanitizedHtml(sanitized);
+					setMarkdownError(null);
+				}
+			} catch (err) {
+				console.error("Error processing markdown in processMarkdown:", err);
+				if (isMounted) {
+					setSanitizedHtml("");
+					setMarkdownError(err instanceof Error ? err : new Error(String(err)));
+				}
 			}
 		};
 
@@ -80,10 +90,17 @@ function BlogPostPage() {
 							<p className="text-lg text-muted-foreground">{post.excerpt}</p>
 						</header>
 
-						<div
-							className="prose prose-invert prose-lg max-w-none"
-							dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-						/>
+						{markdownError ? (
+							<div className="bg-destructive/10 border border-destructive text-destructive px-4 py-3 rounded">
+								<p className="font-semibold">Error processing content</p>
+								<p className="text-sm mt-1">{markdownError.message}</p>
+							</div>
+						) : (
+							<div
+								className="prose prose-invert prose-lg max-w-none"
+								dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+							/>
+						)}
 					</article>
 				</div>
 			</main>
