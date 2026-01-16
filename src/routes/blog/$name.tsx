@@ -1,5 +1,4 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -24,12 +23,24 @@ function BlogPostPage() {
 	const [sanitizedHtml, setSanitizedHtml] = useState<string>("");
 
 	useEffect(() => {
+		let isMounted = true;
+
 		const processMarkdown = async () => {
 			const rawHtml = await parseMarkdown(post.content);
+			// Dynamically import DOMPurify to avoid SSR issues
+			const DOMPurify = (await import("dompurify")).default;
 			const sanitized = DOMPurify.sanitize(rawHtml);
-			setSanitizedHtml(sanitized);
+
+			if (isMounted) {
+				setSanitizedHtml(sanitized);
+			}
 		};
+
 		processMarkdown();
+
+		return () => {
+			isMounted = false;
+		};
 	}, [post.content]);
 
 	return (

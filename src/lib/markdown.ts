@@ -4,6 +4,7 @@ import csharp from "highlight.js/lib/languages/csharp";
 import css from "highlight.js/lib/languages/css";
 // Register only the languages we need
 import javascript from "highlight.js/lib/languages/javascript";
+import plaintext from "highlight.js/lib/languages/plaintext";
 import json from "highlight.js/lib/languages/json";
 import python from "highlight.js/lib/languages/python";
 import typescript from "highlight.js/lib/languages/typescript";
@@ -26,13 +27,15 @@ hljs.registerLanguage("json", json);
 hljs.registerLanguage("css", css);
 hljs.registerLanguage("html", xml);
 hljs.registerLanguage("xml", xml);
+hljs.registerLanguage("plaintext", plaintext);
 
 const marked = new Marked(
 	markedHighlight({
 		langPrefix: "hljs language-",
 		highlight(code, lang) {
-			const language = hljs.getLanguage(lang) ? lang : "plaintext";
-			return hljs.highlight(code, { language }).value;
+			const normalizedLang = lang ? lang.toLowerCase() : "plaintext";
+			const language = hljs.getLanguage(normalizedLang) ? normalizedLang : "plaintext";
+			return hljs.highlight(code, { language, ignoreIllegals: true }).value;
 		},
 	}),
 );
