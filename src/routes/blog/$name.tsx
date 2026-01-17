@@ -1,8 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { parseMarkdown } from "@/lib/markdown";
+import { useSanitizedMarkdown } from "@/lib/useSanitizedMarkdown";
 import { allBlogs } from "../../../.content-collections/generated/index.js";
 import "highlight.js/styles/github-dark.css";
 
@@ -20,38 +19,7 @@ export const Route = createFileRoute("/blog/$name")({
 
 function BlogPostPage() {
 	const { post } = Route.useLoaderData();
-	const [sanitizedHtml, setSanitizedHtml] = useState<string>("");
-	const [markdownError, setMarkdownError] = useState<Error | null>(null);
-
-	useEffect(() => {
-		let isMounted = true;
-
-		const processMarkdown = async () => {
-			try {
-				const rawHtml = await parseMarkdown(post.content);
-				// Dynamically import DOMPurify to avoid SSR issues
-				const DOMPurify = (await import("dompurify")).default;
-				const sanitized = DOMPurify.sanitize(rawHtml);
-
-				if (isMounted) {
-					setSanitizedHtml(sanitized);
-					setMarkdownError(null);
-				}
-			} catch (err) {
-				console.error("Error processing markdown in processMarkdown:", err);
-				if (isMounted) {
-					setSanitizedHtml("");
-					setMarkdownError(err instanceof Error ? err : new Error(String(err)));
-				}
-			}
-		};
-
-		processMarkdown();
-
-		return () => {
-			isMounted = false;
-		};
-	}, [post.content]);
+	const { sanitizedHtml, markdownError } = useSanitizedMarkdown(post.content);
 
 	return (
 		<div className="min-h-screen bg-background">
