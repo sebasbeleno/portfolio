@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { useSanitizedMarkdown } from "@/lib/useSanitizedMarkdown";
 import { allBlogs } from "../../../.content-collections/generated/index.js";
+import "highlight.js/styles/github-dark.css";
 
 export const Route = createFileRoute("/blog/$name")({
 	component: BlogPostPage,
@@ -13,18 +13,13 @@ export const Route = createFileRoute("/blog/$name")({
 			throw notFound();
 		}
 
-		// Convert markdown to HTML (handling async mode)
-		const rawHtml = await marked(post.content);
-
-		// Sanitize HTML to prevent XSS attacks
-		const sanitizedHtml = DOMPurify.sanitize(rawHtml);
-
-		return { post, sanitizedHtml };
+		return { post };
 	},
 });
 
 function BlogPostPage() {
-	const { post, sanitizedHtml } = Route.useLoaderData();
+	const { post } = Route.useLoaderData();
+	const { sanitizedHtml, markdownError } = useSanitizedMarkdown(post.content);
 
 	return (
 		<div className="min-h-screen bg-background">
@@ -63,10 +58,17 @@ function BlogPostPage() {
 							<p className="text-lg text-muted-foreground">{post.excerpt}</p>
 						</header>
 
-						<div
-							className="prose prose-invert prose-lg max-w-none"
-							dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-						/>
+						{markdownError ? (
+							<div className="bg-destructive/10 border border-destructive text-destructive px-4 py-3 rounded">
+								<p className="font-semibold">Error processing content</p>
+								<p className="text-sm mt-1">{markdownError.message}</p>
+							</div>
+						) : (
+							<div
+								className="prose prose-invert prose-lg max-w-none"
+								dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+							/>
+						)}
 					</article>
 				</div>
 			</main>
